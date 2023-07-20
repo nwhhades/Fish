@@ -1,0 +1,7 @@
+<resources>
+    <string name="iv">图片</string>
+    <string name="ok">确定</string>
+    <string name="cancel">取消</string>
+    <string name="weather_err">暂无数据</string>
+
+</resources>

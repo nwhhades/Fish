@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="gray">#FF808080</color>
+    <color name="red">#FFFF0000</color>
+    <color name="green">#FF00FF00</color>
+    <color name="blue">#FF0000FF</color>
+    <color name="yellow">#FFFFFF00</color>
+    <color name="cyan">#FF00FFFF</color>
+    <color name="magenta">#FFFF00FF</color>
+    <color name="orange">#FFFFA500</color>
+    <color name="pink">#FFFFC0CB</color>
+    <color name="purple">#FF800080</color>
+    <color name="brown">#FFA52A2A</color>
+
+    <!-- 更多颜色 -->
+    <color name="light_blue">#FFADD8E6</color>
+    <color name="dark_blue">#FF000080</color>
+    <color name="dark_green">#FF006400</color>
+    <color name="aquamarine">#FF20B2AA</color>
+    <color name="snow">#FFFFFAFA</color>
+    <color name="dark_red">#FF8B0000</color>
+    <color name="slate_gray">#FF708090</color>
+
+    <color name="tr">#00000000</color>
+    <color name="tr_black_10">#1A000000</color>
+    <color name="tr_black_20">#33000000</color>
+    <color name="tr_black_30">#4D000000</color>
+    <color name="tr_black_40">#66000000</color>
+    <color name="tr_black_50">#80000000</color>
+    <color name="tr_black_60">#99000000</color>
+    <color name="tr_black_70">#B3000000</color>
+    <color name="tr_black_80">#CC000000</color>
+    <color name="tr_black_90">#E6000000</color>
+    <color name="tr_white_10">#1AFFFFFF</color>
+    <color name="tr_white_20">#33FFFFFF</color>
+    <color name="tr_white_30">#4DFFFFFF</color>
+    <color name="tr_white_40">#66FFFFFF</color>
+    <color name="tr_white_50">#80FFFFFF</color>
+    <color name="tr_white_60">#99FFFFFF</color>
+    <color name="tr_white_70">#B3FFFFFF</color>
+    <color name="tr_white_80">#CCFFFFFF</color>
+    <color name="tr_white_90">#E6FFFFFF</color>
+
+    <color name="window_bg">#FF333333</color>
+    <color name="text_color">#FFFFFFFF</color>
+    <color name="focus_normal">#FFC1C1C1</color>
+    <color name="focus_focused">#FF07C160</color>
+    <color name="focus_pressed">#FFFFC300</color>
+    <color name="focus_selected">#FF10AEFF</color>
+    <color name="focus_selected_focused">#FF0BB9A0</color>
+    <color name="focus_checked">#FFFA5151</color>
+    <color name="focus_checked_focused">#FF68945A</color>
+
+</resources>
