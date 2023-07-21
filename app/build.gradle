@@ -32,10 +32,19 @@ android {
     buildFeatures {
         viewBinding true
     }
+    allprojects {
+        gradle.projectsEvaluated {
+            tasks.withType(JavaCompile) {
+                options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+            }
+        }
+    }
 }
 
 dependencies {
 
     implementation project(path: ':cat')
+
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.12'
 
 }

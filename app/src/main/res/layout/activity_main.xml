@@ -28,4 +28,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <cn.haizhe.cat.widget.text.AutoMarqueeTextView
+        android:layout_width="500pt"
+        android:layout_height="wrap_content"
+        android:background="@color/blue"
+        android:text="1213afasdfsdfsdfsd"
+        android:textSize="50sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

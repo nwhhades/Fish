@@ -22,6 +22,7 @@
     <color name="snow">#FFFFFAFA</color>
     <color name="dark_red">#FF8B0000</color>
     <color name="slate_gray">#FF708090</color>
+    <color name="deep_gray">#FFA9A9A9</color>
 
     <color name="tr">#00000000</color>
     <color name="tr_black_10">#1A000000</color>
@@ -44,7 +45,9 @@
     <color name="tr_white_90">#E6FFFFFF</color>
 
     <color name="window_bg">#FF333333</color>
-    <color name="text_color">#FFFFFFFF</color>
+    <color name="text_color_1">#FFFFFFFF</color>
+    <color name="text_color_2">#FF666666</color>
+    <color name="text_color_3">#FF444444</color>
     <color name="focus_normal">#FFC1C1C1</color>
     <color name="focus_focused">#FF07C160</color>
     <color name="focus_pressed">#FFFFC300</color>
@@ -52,5 +55,6 @@
     <color name="focus_selected_focused">#FF0BB9A0</color>
     <color name="focus_checked">#FFFA5151</color>
     <color name="focus_checked_focused">#FF68945A</color>
+    <color name="focus_tr_focused">#4D07C160</color>
 
 </resources>

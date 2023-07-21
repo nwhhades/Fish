@@ -6,9 +6,7 @@
             android:shape="ring"
             android:thicknessRatio="15"
             android:useLevel="false">
-
-            <!-- 圆圈背景色 -->
-            <solid android:color="@color/gray" />
+            <solid android:color="@color/focus_normal" />
         </shape>
     </item>
     <item android:id="@android:id/progress">
@@ -22,9 +20,7 @@
                 android:shape="ring"
                 android:thicknessRatio="15"
                 android:useLevel="true">
-
-                <!-- 圆圈前景色 -->
-                <solid android:color="@color/focus_selected" />
+                <solid android:color="@color/focus_focused" />
             </shape>
         </rotate>
     </item>

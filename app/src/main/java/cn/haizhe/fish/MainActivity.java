@@ -1,16 +1,26 @@
 package cn.haizhe.fish;
 
 import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 
+import androidx.annotation.NonNull;
+
+import com.blankj.utilcode.util.PathUtils;
 import com.google.gson.reflect.TypeToken;
+import com.hjq.permissions.OnPermissionCallback;
+import com.hjq.permissions.Permission;
+import com.hjq.permissions.XXPermissions;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import cn.haizhe.cat.base.BaseActivity;
+import cn.haizhe.cat.base.BaseDialogFragment;
 import cn.haizhe.cat.cache.CacheUtils;
+import cn.haizhe.cat.download.DownloadDialog;
 import cn.haizhe.cat.network.NetUtils;
 import cn.haizhe.cat.network.OnNetListener;
 import cn.haizhe.cat.network.base.CacheType;
@@ -26,7 +36,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
 
     private static final String TAG = "MainActivity";
 
-    private final Handler handler = new Handler();
+    private final Handler handler = new Handler(Looper.myLooper());
     private final Runnable runnable = new Runnable() {
         @Override
         public void run() {
@@ -43,6 +53,14 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
         super.preInit();
         //saveAppBackground("https://lmg.jj20.com/up/allimg/1113/051220112022/200512112022-1-1200.jpg");
         saveAppBackground(cn.haizhe.cat.R.drawable.bg_image_loading);
+
+        XXPermissions.with(this).permission(Permission.MANAGE_EXTERNAL_STORAGE).request(new OnPermissionCallback() {
+            @Override
+            public void onGranted(@NonNull List<String> permissions, boolean allGranted) {
+
+            }
+        });
+
     }
 
     @Override
@@ -66,6 +84,16 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
                 //testGet();
                 //getWeather();
                 saveAppBackground("http://lmg.jj20.com/up/allimg/1113/051220112022/200512112022-1-1200.jpg");
+                String apk = "https://cdn.tvmars.com/huoxing/mars_2.0.6/2.0.6new/mars_common_official_2.0.6_169_release-signed.apk";
+                DownloadDialog downloadDialog = new DownloadDialog("下载APK", "爱奇艺", apk, PathUtils.getInternalAppCachePath() + "/");
+                downloadDialog.setOnActionListener(new BaseDialogFragment.OnActionListener() {
+                    @Override
+                    public void onAction(@NonNull BaseDialogFragment<?> dialogFragment, int btn_index) {
+                        Log.d(TAG, "onAction: " + btn_index);
+                    }
+                });
+                downloadDialog.showFragment(getSupportFragmentManager());
+
             }
         });
         viewBinding.tianqiView.setOnClickListener(new View.OnClickListener() {
@@ -73,6 +101,13 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
             public void onClick(View v) {
                 //saveAppBackground(null);
                 showLoadingView("ssss");
+
+                new Handler(Looper.myLooper()).postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        hideLoadingView();
+                    }
+                }, 3000);
             }
         });
 

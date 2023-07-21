@@ -10,6 +10,7 @@ import androidx.annotation.ColorRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleEventObserver;
 import androidx.lifecycle.LifecycleOwner;
@@ -84,11 +85,11 @@ public class TianqiView extends FrameLayout implements LifecycleEventObserver, O
     public void setColor(@ColorRes int res_color) {
         if (binding != null) {
             binding.ivWeatherWea.setColorFilter(ContextCompat.getColor(getContext(), res_color), PorterDuff.Mode.SRC_IN);
-            binding.tvWeatherWea.setTextColor(getResources().getColor(res_color));
-            binding.tvWeatherCity.setTextColor(getResources().getColor(res_color));
-            binding.tvWeatherTem.setTextColor(getResources().getColor(res_color));
-            binding.tvWeatherWendu.setTextColor(getResources().getColor(res_color));
-            binding.tvWeatherErr.setTextColor(getResources().getColor(res_color));
+            binding.tvWeatherWea.setTextColor(ResourcesCompat.getColor(getResources(), res_color, null));
+            binding.tvWeatherCity.setTextColor(ResourcesCompat.getColor(getResources(), res_color, null));
+            binding.tvWeatherTem.setTextColor(ResourcesCompat.getColor(getResources(), res_color, null));
+            binding.tvWeatherWendu.setTextColor(ResourcesCompat.getColor(getResources(), res_color, null));
+            binding.tvWeatherErr.setTextColor(ResourcesCompat.getColor(getResources(), res_color, null));
         }
     }
 

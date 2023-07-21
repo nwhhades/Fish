@@ -3,10 +3,25 @@
     <style name="Base.Theme.Tv" parent="Theme.AppCompat.DayNight.NoActionBar">
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowContentOverlay">@null</item>
-        <item name="android:windowBackground">@color/white</item>
+        <item name="android:windowBackground">@color/window_bg</item>
     </style>
 
     <style name="LoadingProgressBar" parent="Widget.AppCompat.ProgressBar">
         <item name="android:indeterminateDrawable">@drawable/ic_loading_progress</item>
     </style>
+
+    <style name="TvButton" parent="Widget.AppCompat.TextView">
+        <item name="android:background">@drawable/btn_bg_card1</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:focusableInTouchMode">true</item>
+        <item name="android:textAlignment">gravity</item>
+        <item name="android:gravity">center</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">marquee</item>
+        <item name="android:textColor">@color/btn_text_color</item>
+        <item name="android:paddingStart">30pt</item>
+        <item name="android:paddingEnd">30pt</item>
+    </style>
+
 </resources>
