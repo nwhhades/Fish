@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".NetActivity">
+
+    <cn.haizhe.cat.widget.button.TvButton
+        android:id="@+id/btn_get"
+        android:layout_width="wrap_content"
+        android:layout_height="150pt"
+        android:layout_marginStart="300pt"
+        android:layout_marginTop="100pt"
+        android:text="GET请求"
+        android:textColor="@color/btn_text_color"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <cn.haizhe.cat.widget.button.TvButton
+        android:id="@+id/btn_post"
+        android:layout_width="wrap_content"
+        android:layout_height="150pt"
+        android:layout_marginStart="300pt"
+        android:text="POST请求"
+        android:textColor="@color/btn_text_color"
+        app:layout_constraintStart_toEndOf="@id/btn_get"
+        app:layout_constraintTop_toTopOf="@id/btn_get" />
+
+    <TextView
+        android:id="@+id/tv_msg"
+        android:layout_width="3400pt"
+        android:layout_height="1600pt"
+        android:layout_marginTop="350pt"
+        android:background="@color/tr_black_40"
+        android:padding="30pt"
+        android:scrollbarStyle="outsideInset"
+        android:scrollbars="vertical"
+        android:textColor="@color/text_color_1"
+        android:textSize="70pt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,6 +7,7 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 
+import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.PathUtils;
 import com.google.gson.reflect.TypeToken;
 import com.hjq.permissions.OnPermissionCallback;
@@ -40,20 +41,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
 
     private static final String TAG = "MainActivity";
 
-    private final Handler handler = new Handler(Looper.myLooper());
-    private final Runnable runnable = new Runnable() {
-        @Override
-        public void run() {
-            View view = getCurrentFocus();
-            if (view != null) {
-                Log.d(TAG, "run: " + view.toString());
-            } else {
-                Log.d(TAG, "run: 焦点丢失了");
-            }
-            handler.postDelayed(runnable, 1000);
-        }
-    };
-
     protected Disposable d1;
     protected TianqiFactory tianqiFactory;
 
@@ -84,7 +71,14 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
 
     @Override
     public void initView() {
-        handler.post(runnable);
+        viewBinding.btn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ActivityUtils.startActivity(NetActivity.class);
+            }
+        });
+
+
         initBanner();
 
         TianqiFactory.setUrl("https://www.yiketianqi.com/free/day?appid=41599835&appsecret=3I9UiEZd", null);

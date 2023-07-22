@@ -4,6 +4,7 @@
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowBackground">@color/window_bg</item>
+        <item name="android:textSize">90pt</item>
     </style>
 
     <style name="LoadingProgressBar" parent="Widget.AppCompat.ProgressBar">
@@ -20,8 +21,8 @@
         <item name="android:singleLine">true</item>
         <item name="android:ellipsize">marquee</item>
         <item name="android:textColor">@color/btn_text_color</item>
-        <item name="android:paddingStart">30pt</item>
-        <item name="android:paddingEnd">30pt</item>
+        <item name="android:paddingStart">60pt</item>
+        <item name="android:paddingEnd">60pt</item>
     </style>
 
 </resources>

@@ -6,6 +6,19 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <cn.haizhe.cat.widget.button.TvButton
+        android:id="@+id/btn1"
+        android:layout_width="700pt"
+        android:layout_height="180pt"
+        android:layout_marginTop="200pt"
+        android:text="请求测试"
+        android:textColor="@color/btn_text_color"
+        android:textSize="90pt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
     <TextView
         android:id="@+id/tv_btn"
         android:layout_width="wrap_content"
@@ -41,9 +54,10 @@
         android:id="@+id/tb_banner"
         android:layout_width="1800pt"
         android:layout_height="1000pt"
-        android:focusable="true"
         android:clickable="true"
+        android:focusable="true"
         android:focusableInTouchMode="true"
+        android:padding="20pt"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 

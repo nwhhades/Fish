@@ -37,7 +37,7 @@ public class TvButton extends CheckedTextView {
         setSingleLine(true);
         setEllipsize(TextUtils.TruncateAt.MARQUEE);
         setTextColor(ResourcesCompat.getColorStateList(getResources(), R.color.btn_text_color, null));
-        int padding = AdaptScreenUtils.pt2Px(30);
+        int padding = AdaptScreenUtils.pt2Px(90);
         setPadding(padding, 0, padding, 0);
     }
 

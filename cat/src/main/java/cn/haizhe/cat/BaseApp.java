@@ -23,7 +23,7 @@ public abstract class BaseApp extends Application {
         super.onCreate();
         Log.d(TAG, "onCreate: 应用被创建" + this);
         //设置log开关
-        LogUtils.getConfig().setLogSwitch(true);
+        LogUtils.getConfig().setLogSwitch(openLog());
         initMMKV();
         initToaster();
         init();
