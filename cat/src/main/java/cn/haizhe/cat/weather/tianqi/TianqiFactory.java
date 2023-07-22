@@ -1,5 +1,6 @@
 package cn.haizhe.cat.weather.tianqi;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.google.gson.reflect.TypeToken;
 
 import cn.haizhe.cat.R;
@@ -8,7 +9,6 @@ import cn.haizhe.cat.network.NetUtils;
 import cn.haizhe.cat.network.OnNetListener;
 import cn.haizhe.cat.network.base.CacheType;
 import cn.haizhe.cat.network.base.GetRequest;
-import cn.haizhe.cat.utils.LOG;
 import cn.haizhe.cat.weather.base.OnWeatherListener;
 import cn.haizhe.cat.weather.base.WeatherBean;
 import cn.haizhe.cat.weather.base.WeatherFactory;
@@ -55,7 +55,7 @@ public class TianqiFactory implements WeatherFactory {
         getRequest.setUrl2(getUrl2());
         getRequest.setCacheType(CacheType.ONLY_CACHE);
         getRequest.setCacheTime(3 * 6 * 1000);
-        LOG.D(TAG, getRequest.toString());
+        LogUtils.dTag(TAG, getRequest.toString());
         return getRequest;
     }
 

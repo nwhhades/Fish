@@ -1,6 +1,5 @@
 package cn.haizhe.cat.download;
 
-import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +15,7 @@ import cn.haizhe.cat.R;
 import cn.haizhe.cat.base.BaseDialogFragment;
 import cn.haizhe.cat.databinding.FragmentDownloadDialogBinding;
 import cn.haizhe.cat.download.iface.IDownloadView;
+import cn.haizhe.cat.download.iface.OnDownListener;
 
 public abstract class AbsDownloadDialog extends BaseDialogFragment<FragmentDownloadDialogBinding> implements IDownloadView, View.OnClickListener {
 
@@ -23,12 +23,17 @@ public abstract class AbsDownloadDialog extends BaseDialogFragment<FragmentDownl
     protected String content;
     protected String url;
     protected String path;
+    protected OnDownListener onDownListener;
 
     public AbsDownloadDialog(String title, String content, String url, String path) {
         this.title = title;
         this.content = content;
         this.url = url;
         this.path = path;
+    }
+
+    public void setOnDownListener(OnDownListener onDownListener) {
+        this.onDownListener = onDownListener;
     }
 
     @Override
@@ -46,9 +51,6 @@ public abstract class AbsDownloadDialog extends BaseDialogFragment<FragmentDownl
 
     @Override
     public void onClick(View v) {
-        if (onActionListener != null) {
-            onActionListener.onAction(this, v.getId() == R.id.ctv_btn1 ? 0 : 1);
-        }
         if (v.getId() == R.id.ctv_btn1) {
             //下载与暂停
             if (isDownloading()) {
@@ -63,10 +65,12 @@ public abstract class AbsDownloadDialog extends BaseDialogFragment<FragmentDownl
     }
 
     @Override
-    public void onDismiss(@NonNull DialogInterface dialog) {
+    public void onClose(boolean isCancel) {
         //停止下载
         stopDownload();
-        super.onDismiss(dialog);
+        if (onDownListener != null) {
+            onDownListener.onDialogClose(this, isCancel);
+        }
     }
 
     @Override
@@ -121,18 +125,27 @@ public abstract class AbsDownloadDialog extends BaseDialogFragment<FragmentDownl
     public void onDownSuccess(File file) {
         Toaster.showShort("下载成功");
         onViewDownloadSuccess();
+        if (onDownListener != null) {
+            onDownListener.onDownSuccess(this, file);
+        }
     }
 
     @Override
     public void onDownFail() {
         Toaster.showShort("下载失败");
         onViewDownloadFail();
+        if (onDownListener != null) {
+            onDownListener.onDownFail(this);
+        }
     }
 
     @Override
     public void onDownStop() {
         Toaster.showShort("下载结束");
         onViewDownloadStop();
+        if (onDownListener != null) {
+            onDownListener.onDownFail(this);
+        }
     }
 
 }

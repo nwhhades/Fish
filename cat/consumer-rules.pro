@@ -35,3 +35,7 @@
 # 下载组件
 -keep class com.liulishuo.okdownload.**{*;}
 -dontwarn edu.umd.cs.findbugs.annotations.SuppressFBWarnings
+
+# 轮播混淆
+-keep class androidx.recyclerview.widget.**{*;}
+-keep class androidx.viewpager2.widget.**{*;}

@@ -2,9 +2,8 @@ package cn.haizhe.cat.cache;
 
 import androidx.annotation.NonNull;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.tencent.mmkv.MMKV;
-
-import cn.haizhe.cat.utils.LOG;
 
 public class Cache {
 
@@ -29,12 +28,12 @@ public class Cache {
                 mmkv.removeValueForKey(key + KEY_TIME_SUFFIX);
             }
         }
-        LOG.D(TAG, "get方法: \nmmkv数据库:" + mmkv.mmapID() + " \nkey值:" + key + " \ndef值:" + def + " \nvalue值:" + value);
+        LogUtils.dTag(TAG, "get方法: \nmmkv数据库:" + mmkv.mmapID() + " \nkey值:" + key + " \ndef值:" + def + " \nvalue值:" + value);
         return value;
     }
 
     public void put(String key, String value, long cacheTime) {
-        LOG.D(TAG, "put方法: \nmmkv数据库:" + mmkv.mmapID() + " \nkey值:" + key + " \nvalue值:" + value + " \ncacheTime值:" + cacheTime);
+        LogUtils.dTag(TAG, "put方法: \nmmkv数据库:" + mmkv.mmapID() + " \nkey值:" + key + " \nvalue值:" + value + " \ncacheTime值:" + cacheTime);
         if (key != null && value != null) {
             mmkv.putString(key, value);
             mmkv.putLong(key + KEY_TIME_SUFFIX, cacheTime > 0 ? (System.currentTimeMillis() + cacheTime) : 0);

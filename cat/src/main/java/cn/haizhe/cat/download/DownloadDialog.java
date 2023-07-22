@@ -3,6 +3,7 @@ package cn.haizhe.cat.download;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.RegexUtils;
 import com.hjq.toast.Toaster;
 import com.liulishuo.okdownload.DownloadTask;
@@ -12,8 +13,6 @@ import com.liulishuo.okdownload.core.cause.ResumeFailedCause;
 import com.liulishuo.okdownload.core.listener.DownloadListener1;
 import com.liulishuo.okdownload.core.listener.assist.Listener1Assist;
 
-import cn.haizhe.cat.utils.LOG;
-
 public class DownloadDialog extends AbsDownloadDialog {
 
     private static final String TAG = "下载对话框";
@@ -21,7 +20,7 @@ public class DownloadDialog extends AbsDownloadDialog {
     private final DownloadListener1 downloadListener = new DownloadListener1() {
         @Override
         public void taskStart(@NonNull DownloadTask task, @NonNull Listener1Assist.Listener1Model model) {
-            LOG.D(TAG, "下载开始");
+            LogUtils.dTag(TAG, "下载开始");
             onDownStart();
         }
 
@@ -42,7 +41,7 @@ public class DownloadDialog extends AbsDownloadDialog {
 
         @Override
         public void taskEnd(@NonNull DownloadTask task, @NonNull EndCause cause, @Nullable Exception realCause, @NonNull Listener1Assist.Listener1Model model) {
-            LOG.D(TAG, "下载结束: " + cause);
+            LogUtils.dTag(TAG, "下载结束: " + cause);
             if (cause == EndCause.COMPLETED) {
                 onDownSuccess(task.getFile());
             } else if (cause == EndCause.CANCELED) {
@@ -51,7 +50,7 @@ public class DownloadDialog extends AbsDownloadDialog {
                 onDownFail();
             }
             if (realCause != null) {
-                LOG.D(TAG, "下载出错: ", realCause);
+                LogUtils.dTag(TAG, "下载出错: ", realCause);
             }
         }
     };
@@ -67,7 +66,7 @@ public class DownloadDialog extends AbsDownloadDialog {
     public void initDownTask(String url, String path) {
         try {
             if (!RegexUtils.isURL(url)) return;
-            LOG.D(TAG, "下载初始化: \n下载地址:" + url + "\n文件保存地址:" + path);
+            LogUtils.dTag(TAG, "下载初始化: \n下载地址:" + url + "\n文件保存地址:" + path);
             downloadTask = new DownloadTask.Builder(url, path, "")
                     .setConnectionCount(1)
                     .setMinIntervalMillisCallbackProcess(50)

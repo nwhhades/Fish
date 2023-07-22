@@ -1,12 +1,13 @@
 package cn.haizhe.cat;
 
 import android.app.Application;
+import android.util.Log;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.hjq.toast.Toaster;
 import com.tencent.mmkv.MMKV;
 import com.tencent.mmkv.MMKVLogLevel;
 
-import cn.haizhe.cat.utils.LOG;
 import cn.haizhe.cat.widget.toaster.BigBlackToastStyle;
 
 public abstract class BaseApp extends Application {
@@ -20,8 +21,9 @@ public abstract class BaseApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        LOG.setOpen(openLog());
-        LOG.D(TAG, "onCreate: " + this);
+        Log.d(TAG, "onCreate: 应用被创建" + this);
+        //设置log开关
+        LogUtils.getConfig().setLogSwitch(true);
         initMMKV();
         initToaster();
         init();
@@ -29,8 +31,8 @@ public abstract class BaseApp extends Application {
 
     private void initMMKV() {
         String root = MMKV.initialize(this);
-        LOG.D(TAG, "initMMKV: MMKV root is " + root);
-        MMKV.setLogLevel(LOG.isOpen() ? MMKVLogLevel.LevelDebug : MMKVLogLevel.LevelNone);
+        MMKV.setLogLevel(LogUtils.getConfig().isLogSwitch() ? MMKVLogLevel.LevelDebug : MMKVLogLevel.LevelNone);
+        LogUtils.dTag(TAG, "initMMKV: MMKV root is " + root);
     }
 
     private void initToaster() {

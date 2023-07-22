@@ -44,6 +44,11 @@ public class LoadingFragment extends BaseDialogFragment<FragmentLoadingDialogBin
         viewBinding.getRoot().setOnClickListener(v -> showMsg());
     }
 
+    @Override
+    public void onClose(boolean isCancel) {
+
+    }
+
     public void showMsg() {
         if (msg != null) {
             Toaster.showShort(msg);

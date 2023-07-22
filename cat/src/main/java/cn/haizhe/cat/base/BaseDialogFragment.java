@@ -20,29 +20,13 @@ import cn.haizhe.cat.base.iface.IFragment;
 
 public abstract class BaseDialogFragment<V extends ViewBinding> extends AppCompatDialogFragment implements IFragment<V> {
 
-    public interface OnActionListener {
-
-        void onAction(@NonNull BaseDialogFragment<?> dialogFragment, int btn_index);
-
-        default void onCancel(@NonNull DialogInterface dialog) {
-        }
-
-        default void onDismiss(@NonNull DialogInterface dialog) {
-        }
-
-    }
-
     private static final String TAG = "BaseDialogFragment";
 
     protected boolean isShow = false;
 
+    protected boolean isCancel = false;
+
     protected V viewBinding;
-
-    protected OnActionListener onActionListener;
-
-    public void setOnActionListener(OnActionListener onActionListener) {
-        this.onActionListener = onActionListener;
-    }
 
     @Override
     public void showFragment(@NonNull FragmentManager manager) {
@@ -77,17 +61,13 @@ public abstract class BaseDialogFragment<V extends ViewBinding> extends AppCompa
     @Override
     public void onDismiss(@NonNull DialogInterface dialog) {
         super.onDismiss(dialog);
-        if (onActionListener != null) {
-            onActionListener.onDismiss(dialog);
-        }
+        onClose(isCancel);
     }
 
     @Override
     public void onCancel(@NonNull DialogInterface dialog) {
         super.onCancel(dialog);
-        if (onActionListener != null) {
-            onActionListener.onCancel(dialog);
-        }
+        isCancel = true;
     }
 
 }

@@ -15,9 +15,10 @@ import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleEventObserver;
 import androidx.lifecycle.LifecycleOwner;
 
+import com.blankj.utilcode.util.LogUtils;
+
 import cn.haizhe.cat.R;
 import cn.haizhe.cat.databinding.LayoutTianqiViewBinding;
-import cn.haizhe.cat.utils.LOG;
 import cn.haizhe.cat.weather.base.OnWeatherListener;
 import cn.haizhe.cat.weather.base.WeatherBean;
 import cn.haizhe.cat.weather.tianqi.TianqiFactory;
@@ -49,7 +50,7 @@ public class TianqiView extends FrameLayout implements LifecycleEventObserver, O
 
     @Override
     public void onWeather(WeatherBean bean) {
-        LOG.D(TAG, "设置天气状态:" + bean);
+        LogUtils.dTag(TAG, "设置天气状态:" + bean);
         if (bean == null) {
             binding.ivWeatherWea.setImageResource(R.mipmap.ic_weather_err);
             binding.tvWeatherWea.setText("");

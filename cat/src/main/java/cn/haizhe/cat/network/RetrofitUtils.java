@@ -1,8 +1,9 @@
 package cn.haizhe.cat.network;
 
+import com.blankj.utilcode.util.LogUtils;
+
 import java.util.concurrent.TimeUnit;
 
-import cn.haizhe.cat.utils.LOG;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -25,7 +26,7 @@ public enum RetrofitUtils {
         builder.writeTimeout(3, TimeUnit.SECONDS);
         builder.readTimeout(3, TimeUnit.SECONDS);
         //日志
-        if (LOG.isOpen()) {
+        if (LogUtils.getConfig().isLogSwitch()) {
             HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
             httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
             builder.addInterceptor(httpLoggingInterceptor);

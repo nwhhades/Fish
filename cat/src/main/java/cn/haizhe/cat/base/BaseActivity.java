@@ -3,6 +3,7 @@ package cn.haizhe.cat.base;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
@@ -15,6 +16,7 @@ import com.blankj.utilcode.util.AdaptScreenUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.bumptech.glide.Glide;
 
+import cn.haizhe.cat.R;
 import cn.haizhe.cat.base.iface.IActivity;
 import cn.haizhe.cat.widget.dialog.LoadingFragment;
 
@@ -94,10 +96,12 @@ public abstract class BaseActivity<V extends ViewBinding> extends AppCompatActiv
     @Override
     public void initAppBackground(@NonNull V viewBinding) {
         if (enableAppBackground()) {
-            if (viewBinding.getRoot() instanceof ViewGroup) {
-                ivAppBackground = new ImageView(viewBinding.getRoot().getContext());
+            View root = viewBinding.getRoot();
+            if (root instanceof ViewGroup) {
+                ivAppBackground = new ImageView(this);
+                ivAppBackground.setId(R.id.iv_app_bg);
                 ivAppBackground.setScaleType(ImageView.ScaleType.FIT_XY);
-                ViewGroup viewGroup = (ViewGroup) viewBinding.getRoot();
+                ViewGroup viewGroup = (ViewGroup) root;
                 ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
                 viewGroup.addView(ivAppBackground, 0, layoutParams);
             }
@@ -109,24 +113,23 @@ public abstract class BaseActivity<V extends ViewBinding> extends AppCompatActiv
         if (ivAppBackground != null) {
             String src = readAppBackground();
             if (src != null && !src.equals("")) {
-                Object img;
                 Object srcHashCode = src.hashCode();
-                Log.d(TAG, "loadAppBackground: 背景图片资源hashCode" + srcHashCode);
+                Log.d(TAG, "loadAppBackground: 背景图片资源,新的hashCode - " + srcHashCode);
                 Object tag = ivAppBackground.getTag();
-                if (srcHashCode.equals(tag)) {
-                    //hashCode相同，不需要重新加载
-                    Log.d(TAG, "loadAppBackground: hashCode相同，不需要重新加载");
-                    return;
-                } else {
+                Log.d(TAG, "loadAppBackground: 背景图片资源,老的hashCode - " + tag);
+                if (!srcHashCode.equals(tag)) {
+                    Log.d(TAG, "loadAppBackground: 背景图片资源,两者hashCode不同,重新加载图片");
+                    Object img;
                     try {
                         img = Integer.parseInt(src);
                     } catch (Exception e) {
                         img = src;
                     }
+                    Glide.with(this).load(img).into(ivAppBackground);
+                    ivAppBackground.setTag(srcHashCode);
                 }
-                Glide.with(this).load(img).into(ivAppBackground);
-                ivAppBackground.setTag(srcHashCode);
             } else {
+                Log.d(TAG, "loadAppBackground: 清除背景图片资源");
                 ivAppBackground.setImageDrawable(null);
                 ivAppBackground.setTag(null);
             }

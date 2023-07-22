@@ -3,6 +3,7 @@ package cn.haizhe.cat.network;
 import androidx.annotation.NonNull;
 
 import com.blankj.utilcode.util.GsonUtils;
+import com.blankj.utilcode.util.LogUtils;
 
 import java.lang.reflect.Type;
 
@@ -10,7 +11,6 @@ import cn.haizhe.cat.cache.CacheUtils;
 import cn.haizhe.cat.network.base.CacheType;
 import cn.haizhe.cat.network.base.GetRequest;
 import cn.haizhe.cat.network.base.PostRequest;
-import cn.haizhe.cat.utils.LOG;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -27,14 +27,14 @@ public enum NetUtils {
 
     public <T> void get(@NonNull GetRequest request, @NonNull OnNetListener<T> onNetListener) {
         if (request.check()) {
-            LOG.D(TAG, "get请求: 请求参数不完整");
+            LogUtils.dTag(TAG, "get请求: 请求参数不完整");
             return;
         }
         final Type dataType = onNetListener.getTypeToken().getType();
         final CacheType cacheType = request.getCacheType();
         boolean returnData = true;
         T data;
-        LOG.D(TAG, "get请求: 缓存类型" + cacheType);
+        LogUtils.dTag(TAG, "get请求: 缓存类型" + cacheType);
         switch (cacheType) {
             case ONLY_CACHE:
                 //缓存存在的话，就不请求了
@@ -73,7 +73,7 @@ public enum NetUtils {
                 .onErrorResumeNext(observable2)
                 .onTerminateDetach()
                 .doOnDispose(() -> {
-                    LOG.D(TAG, "get请求: 请求被主动终止");
+                    LogUtils.dTag(TAG, "get请求: 请求被主动终止");
                     if (listener != null) {
                         listener.onFailed(new Exception("请求被主动取消了"));
                         listener.onEnd();
@@ -82,7 +82,7 @@ public enum NetUtils {
                 .subscribe(new Observer<String>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-                        LOG.D(TAG, "get请求: 网络请求开始");
+                        LogUtils.dTag(TAG, "get请求: 网络请求开始");
                         if (listener != null) {
                             listener.onStart(d);
                         }
@@ -113,7 +113,7 @@ public enum NetUtils {
 
                     @Override
                     public void onError(Throwable e) {
-                        LOG.D(TAG, "get请求: 网络请求失败", e);
+                        LogUtils.dTag(TAG, "get请求: 网络请求失败", e);
                         if (listener != null) {
                             listener.onFailed(new Exception(e.getMessage()));
                             listener.onEnd();
@@ -122,7 +122,7 @@ public enum NetUtils {
 
                     @Override
                     public void onComplete() {
-                        LOG.D(TAG, "get请求: 网络请求结束");
+                        LogUtils.dTag(TAG, "get请求: 网络请求结束");
                         if (listener != null) {
                             listener.onEnd();
                         }
@@ -133,14 +133,14 @@ public enum NetUtils {
 
     public <T> void post(@NonNull PostRequest request, @NonNull OnNetListener<T> onNetListener) {
         if (request.check()) {
-            LOG.D(TAG, "post请求: 请求参数不完整");
+            LogUtils.dTag(TAG, "post请求: 请求参数不完整");
             return;
         }
         final Type dataType = onNetListener.getTypeToken().getType();
         final CacheType cacheType = request.getCacheType();
         boolean returnData = true;
         T data;
-        LOG.D(TAG, "post请求: 缓存类型" + cacheType);
+        LogUtils.dTag(TAG, "post请求: 缓存类型" + cacheType);
         switch (cacheType) {
             case ONLY_CACHE:
                 //缓存存在的话，就不请求了
@@ -179,7 +179,7 @@ public enum NetUtils {
                 .onErrorResumeNext(observable2)
                 .onTerminateDetach()
                 .doOnDispose(() -> {
-                    LOG.D(TAG, "post请求: 请求被主动终止");
+                    LogUtils.dTag(TAG, "post请求: 请求被主动终止");
                     if (listener != null) {
                         listener.onFailed(new Exception("请求被主动取消了"));
                         listener.onEnd();
@@ -188,7 +188,7 @@ public enum NetUtils {
                 .subscribe(new Observer<String>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-                        LOG.D(TAG, "post请求: 网络请求开始");
+                        LogUtils.dTag(TAG, "post请求: 网络请求开始");
                         if (listener != null) {
                             listener.onStart(d);
                         }
@@ -219,7 +219,7 @@ public enum NetUtils {
 
                     @Override
                     public void onError(Throwable e) {
-                        LOG.D(TAG, "post请求: 网络请求失败", e);
+                        LogUtils.dTag(TAG, "post请求: 网络请求失败", e);
                         if (listener != null) {
                             listener.onFailed(new Exception(e.getMessage()));
                             listener.onEnd();
@@ -228,7 +228,7 @@ public enum NetUtils {
 
                     @Override
                     public void onComplete() {
-                        LOG.D(TAG, "post请求: 网络请求结束");
+                        LogUtils.dTag(TAG, "post请求: 网络请求结束");
                         if (listener != null) {
                             listener.onEnd();
                         }

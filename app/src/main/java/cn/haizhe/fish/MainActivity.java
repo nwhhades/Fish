@@ -13,14 +13,16 @@ import com.hjq.permissions.OnPermissionCallback;
 import com.hjq.permissions.Permission;
 import com.hjq.permissions.XXPermissions;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import cn.haizhe.cat.base.BaseActivity;
 import cn.haizhe.cat.base.BaseDialogFragment;
-import cn.haizhe.cat.cache.CacheUtils;
 import cn.haizhe.cat.download.DownloadDialog;
+import cn.haizhe.cat.download.iface.OnDownListener;
 import cn.haizhe.cat.network.NetUtils;
 import cn.haizhe.cat.network.OnNetListener;
 import cn.haizhe.cat.network.base.CacheType;
@@ -29,6 +31,8 @@ import cn.haizhe.cat.network.base.PostRequest;
 import cn.haizhe.cat.weather.base.OnWeatherListener;
 import cn.haizhe.cat.weather.base.WeatherBean;
 import cn.haizhe.cat.weather.tianqi.TianqiFactory;
+import cn.haizhe.cat.widget.banner.OnTvBannerListener;
+import cn.haizhe.cat.widget.banner.TvBannerAdapter;
 import cn.haizhe.fish.databinding.ActivityMainBinding;
 import io.reactivex.disposables.Disposable;
 
@@ -40,8 +44,13 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
     private final Runnable runnable = new Runnable() {
         @Override
         public void run() {
-            Log.d(TAG, "run: " + CacheUtils.instance.getCache().get(TAG, "默认值"));
-            handler.postDelayed(runnable, 2000);
+            View view = getCurrentFocus();
+            if (view != null) {
+                Log.d(TAG, "run: " + view.toString());
+            } else {
+                Log.d(TAG, "run: 焦点丢失了");
+            }
+            handler.postDelayed(runnable, 1000);
         }
     };
 
@@ -75,6 +84,9 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
 
     @Override
     public void initView() {
+        handler.post(runnable);
+        initBanner();
+
         TianqiFactory.setUrl("https://www.yiketianqi.com/free/day?appid=41599835&appsecret=3I9UiEZd", null);
 
         viewBinding.tvBtn.setOnClickListener(new View.OnClickListener() {
@@ -86,10 +98,21 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
                 saveAppBackground("http://lmg.jj20.com/up/allimg/1113/051220112022/200512112022-1-1200.jpg");
                 String apk = "https://cdn.tvmars.com/huoxing/mars_2.0.6/2.0.6new/mars_common_official_2.0.6_169_release-signed.apk";
                 DownloadDialog downloadDialog = new DownloadDialog("下载APK", "爱奇艺", apk, PathUtils.getInternalAppCachePath() + "/");
-                downloadDialog.setOnActionListener(new BaseDialogFragment.OnActionListener() {
+                downloadDialog.setOnDownListener(new OnDownListener() {
                     @Override
-                    public void onAction(@NonNull BaseDialogFragment<?> dialogFragment, int btn_index) {
-                        Log.d(TAG, "onAction: " + btn_index);
+                    public void onDownSuccess(BaseDialogFragment<?> dialogFragment, File file) {
+                        Log.d(TAG, "onDownSuccess: 下载成功了 " + file.getAbsolutePath());
+                    }
+
+                    @Override
+                    public void onDownFail(BaseDialogFragment<?> dialogFragment) {
+                        Log.d(TAG, "onDownFail: 下载失败了");
+                    }
+
+                    @Override
+                    public void onDialogClose(BaseDialogFragment<?> dialogFragment, boolean isCancel) {
+                        Log.d(TAG, "onDialogClose: 对话框关闭了");
+
                     }
                 });
                 downloadDialog.showFragment(getSupportFragmentManager());
@@ -114,6 +137,56 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
         viewBinding.tianqiView.setColor(cn.haizhe.cat.R.color.yellow);
         getLifecycle().addObserver(viewBinding.tianqiView);
 
+    }
+
+    private void initBanner() {
+        List<String> stringList = new ArrayList<>();
+        stringList.add("https://t7.baidu.com/it/u=4198287529,2774471735&fm=193&f=GIF");
+        stringList.add("https://t7.baidu.com/it/u=1956604245,3662848045&fm=193&f=GIF");
+        stringList.add("https://t7.baidu.com/it/u=825057118,3516313570&fm=193&f=GIF");
+        stringList.add("https://img2.baidu.com/it/u=1577373388,3492284830&fm=253&fmt=auto&app=120&f=JPEG?w=1280&h=800");
+        stringList.add("https://img2.baidu.com/it/u=63249423,2260265143&fm=253&fmt=auto&app=120&f=JPEG?w=889&h=500");
+        stringList.add("https://img1.baidu.com/it/u=1839135015,723795615&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=500");
+        stringList.add("https://img0.baidu.com/it/u=922902802,2128943538&fm=253&fmt=auto&app=120&f=JPEG?w=1422&h=800");
+
+        TvBannerAdapter tvBannerAdapter = new TvBannerAdapter();
+
+
+        viewBinding.tbBanner.setOnTvBannerListener(new OnTvBannerListener() {
+            @Override
+            public void onChangePage(int page) {
+
+            }
+
+            @Override
+            public void onClickPage(int page) {
+                Log.d(TAG, "onClickPage: " + page);
+            }
+        });
+        viewBinding.tbBanner.registerLifecycleObserver(getLifecycle());
+        viewBinding.tbBanner.setAdapter(tvBannerAdapter);
+        viewBinding.tbBanner.create();
+        viewBinding.tbBanner.refreshData(stringList);
+
+//        PicBannerAdapter picBannerAdapter = new PicBannerAdapter();
+//        viewBinding.tbBanner.registerLifecycleObserver(getLifecycle());
+//        viewBinding.tbBanner.setAdapter(picBannerAdapter);
+//        viewBinding.tbBanner.setOnPageClickListener(new BannerViewPager.OnPageClickListener() {
+//            @Override
+//            public void onPageClick(View clickedView, int position) {
+//                Log.d(TAG, "onPageClick: 点击了" + position);
+//            }
+//        });
+//        viewBinding.tbBanner.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Log.d(TAG, "onClick: 我点击了主容器");
+//                viewBinding.tbBanner.getCurrentItem();
+//            }
+//        });
+//        viewBinding.tbBanner.create();
+//
+//        viewBinding.tbBanner.refreshData(stringList);
     }
 
     public static class A {
