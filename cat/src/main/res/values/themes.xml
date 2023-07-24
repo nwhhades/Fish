@@ -5,6 +5,7 @@
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowBackground">@color/window_bg</item>
         <item name="android:textSize">90pt</item>
+        <item name="colorAccent">@color/focus_pressed</item>
     </style>
 
     <style name="LoadingProgressBar" parent="Widget.AppCompat.ProgressBar">

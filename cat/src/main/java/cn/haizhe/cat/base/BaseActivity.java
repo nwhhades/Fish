@@ -119,13 +119,15 @@ public abstract class BaseActivity<V extends ViewBinding> extends AppCompatActiv
                 Log.d(TAG, "loadAppBackground: 背景图片资源,老的hashCode - " + tag);
                 if (!srcHashCode.equals(tag)) {
                     Log.d(TAG, "loadAppBackground: 背景图片资源,两者hashCode不同,重新加载图片");
-                    Object img;
                     try {
-                        img = Integer.parseInt(src);
+                        int resId = Integer.parseInt(src);
+                        ivAppBackground.setImageResource(resId);
                     } catch (Exception e) {
-                        img = src;
+                        Glide.with(BaseActivity.this)
+                                .load(src)
+                                .error(R.color.window_bg)
+                                .into(ivAppBackground);
                     }
-                    Glide.with(this).load(img).into(ivAppBackground);
                     ivAppBackground.setTag(srcHashCode);
                 }
             } else {
